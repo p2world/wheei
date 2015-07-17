@@ -1,9 +1,9 @@
 
 a javascript native code embed template with
 
-* lenient
 * clear
 * powerful
+* Compatible
 
 ## fire
 
@@ -77,21 +77,51 @@ var html=wheei('{{-data}}','ok',{argName:data}); // 'ok'
 
 the globel default is `wheei.conf`
 
+* wheei is a global variable (because template function will access it)
+
 ## beyond
 
 ### inner template
 
-```jsp
-
-{{function list(data){var __out='';}}
-
+```
+{{#list data , a}}
     {{~data item}}
         <li>{{-item}}</li>
     {{~}}
+    {{=a}}
+{{#}}
+{{=list(['first','second'],'aaa')}}
+```
 
+same to
+
+```
+{{function list(data , a){var __out='';}}
+    {{~data item}}
+        <li>{{-item}}</li>
+    {{~}}
+    {{=a}}
 {{return __out;} }}
+{{=list(['first','second'],'aaa')}}
+```
 
+### include template
 
-{{=list(['first','second'])}}
+```html
+<script type="text/plain" id="list">
+    {{~data item}}
+        <li>{{-item}}</li>
+    {{~}}
+</script>
+```
 
+```javascript
+wheei.tpls.list = wheei(document.getElementById('list').innerHTML);
+```
+
+```html
+<script type="text/plain" id="page">
+    <h1>in page</h1>
+    {{=wheei.tpls.list(['first','second'])}}
+</script>
 ```

@@ -1,4 +1,4 @@
- require './jl'
+require './wheei'
 
 
 test = (text,arg,res,conf)->
@@ -65,10 +65,18 @@ test '''
     return __out;
 }
 }}
-
-
 {{=list(['first','second'])}}
 ''',{},'<li>first</li><li>second</li>',{strip:true}
+
+test '''
+{{=list(['first','second'],'aaa')}}
+{{#list data , a}}
+    {{~data item}}
+        <li>{{-item}}</li>
+    {{~}}
+    {{=a}}
+{{#}}
+''',{},'<li>first</li><li>second</li>aaa',{strip:true}
 
 try
     test '''
@@ -76,9 +84,33 @@ try
 
     {{?}}
     ''',{},''
-    throw new Error 'now is realy error'
+    throw new Error 'ERROR: unclosed check'
 catch e
-    if e.message == 'unclosed `~`'
+    if ~e.message.indexOf('[wheei complie error] unclosed `~`')
         console.log "OK: unclosed check"
+    else
+        throw e
+
+try
+    test '''
+
+    {{?}}
+    ''',{},''
+    throw new Error 'ERROR: unopend check'
+catch e
+    if ~e.message.indexOf('[wheei complie error] unopend `?`')
+        console.log "OK: unopend check"
+    else
+        throw e
+
+try
+    test '''
+
+    {{varr a}}
+    ''',{},''
+    throw new Error 'ERROR: new Function check'
+catch e
+    if ~e.message.indexOf('[wheei new Function error]')
+        console.log "OK: new Function check"
     else
         throw e

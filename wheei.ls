@@ -11,10 +11,27 @@ _i = 0
 
 statementStack = []
 
+statementStackPop = ->
+    type = statementStack.pop()
+    if !type
+        throw new Error "unopend `#it`"
+    if type != it
+        throw new Error "unclosed `#type`"
 
 quicks=
     '-':(body)->
         return "__out+=__e(#{body});"
+    '#':(body)->
+        if body
+            re = /^(\w+)(\s+(.*))?$/.exec(body)
+            if !re then throw new Error('# error')
+            [,funcName,,args] = re
+            return """
+                function #funcName(#args){
+                    var __out='';
+            """
+        else
+            return 'return __out;}'
     '=':(body)->
         return "__out+=__o(#{body});"
     '?':(body)->
@@ -22,11 +39,11 @@ quicks=
             statementStack.push '?'
             return "if(#{body}){"
         else
-            type = statementStack.pop()
-            if type != '?'
-                throw new Error "unclosed `#type`"
+            statementStackPop '?'
             return '}'
     '??':(body)->
+        if statementStack[*-1] != '?'
+            throw new Error '`??` not in `?`'
         return if body
         then "}else if(#{body}){"
         else '}else{'
@@ -48,10 +65,7 @@ quicks=
 
             return res
         else
-            type = statementStack.pop()
-            if type != '~'
-                throw new Error "unclosed `#type`"
-
+            statementStackPop '~'
             return '}'
 
 quickkeys = [ key for key of quicks].sort (a,b)->
@@ -125,8 +139,23 @@ complie = (text,conf)->
 
 wheei = (text,data,conf)->
     conf = ({} <<< wheei.conf) <<< conf
-    funcStr = complie(text,conf)
-    func = new Function(conf.argName,funcStr)
+    try
+        funcStr = complie(text,conf)
+    catch e
+        e.message = '[wheei complie error] ' + e.message
+        e.message += '\n[tpl]:\n'
+        e.message += text
+        throw e
+
+    try
+        func = new Function(conf.argName,funcStr)
+    catch e
+        e.message = '[wheei new Function error] ' + e.message
+        e.message += '\n[tplFunc]:\n'
+        e.message += funcStr
+        throw e
+      
+
     if data?
         return func data
     else
@@ -161,6 +190,8 @@ wheei.encode = ->
         case '&' then res+='&amp;'
         default  res+=i
     return res
+
+wheei.tpls = {}
 
 global?.wheei=wheei
 window?.wheei=wheei
