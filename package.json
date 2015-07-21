@@ -1,7 +1,7 @@
 {
   "name": "wheei",
   "description": "a javascript native code embed template with",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "wheei",
     "native",
@@ -17,7 +17,6 @@
     "type": "git",
     "url": "https://github.com/p2world/wheei.git"
   },
-  "main":"wheei.js",
   "scripts": {
     "test": "node test.js"
   },
