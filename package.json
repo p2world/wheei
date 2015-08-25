@@ -1,10 +1,11 @@
 {
   "name": "wheei",
-  "description": "a javascript native code embed template with",
-  "version": "1.0.3",
+  "description": "a javascript code embed template with",
+  "version": "1.0.4",
   "keywords": [
     "wheei",
-    "native",
+    "express",
+    "browser",
     "template"
   ],
   "author": {
