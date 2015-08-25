@@ -27,6 +27,9 @@
     '-': function(body){
       return "__out+=__e(" + body + ");";
     },
+    '@': function(body){
+      return "__out+=__o(arguments.callee.load(" + body + "));";
+    },
     '#': function(body){
       var re, funcName, args;
       if (body) {
@@ -180,8 +183,8 @@
   wheei.conf = {
     strip: false,
     argName: 'it',
-    open: '{{',
-    close: '}}'
+    open: '<%',
+    close: '%>'
   };
   wheei.parse = function(it){
     if (it != null) {
@@ -229,13 +232,9 @@
     return res;
   };
   wheei.tpls = {};
-  if (typeof global != 'undefined' && global !== null) {
-    global.wheei = wheei;
-  }
-  if (typeof window != 'undefined' && window !== null) {
-    window.wheei = wheei;
-  }
-  return wheei;
+  (function(){
+    return this.wheei = wheei;
+  })();
   function import$(obj, src){
     var own = {}.hasOwnProperty;
     for (var key in src) if (own.call(src, key)) obj[key] = src[key];

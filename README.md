@@ -125,3 +125,50 @@ wheei.tpls.list = wheei(document.getElementById('list').innerHTML);
     {{=wheei.tpls.list(['first','second'])}}
 </script>
 ```
+
+## nodejs with express
+
+`npm install wheei --save`
+
+```javascript
+var wheei=require('wheei');
+var path=require('path');
+
+app.engine('whe',wheei.__express);
+app.set('view engine', 'whe');
+app.set('views', path.join(__dirname,'views'));
+// if `view cache` is `true`,you have to restart server after `.whe` file change
+app.set('view cache', true||false);
+```
+
+### include
+
+index.whe
+
+```
+index.whe
+{{@ 'whe/a.whe','hello'}}
+index.whe
+```
+
+include/a.whe
+
+```
+a.whe:{{=it}}
+```
+
+result is:
+
+```
+index.whe
+a.whe:hello
+index.whe
+```
+
+#### about the path
+
+just like linux `cd`
+
+* the root is `app.set('views', path.join(__dirname,'views'))`
+* `absolute` start with `/`,like `/index.whe`
+* `relative` like `whe/a.whe` `./whe/a.whe` `../index.whe`

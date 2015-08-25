@@ -21,6 +21,8 @@ statementStackPop = ->
 quicks=
     '-':(body)->
         return "__out+=__e(#{body});"
+    '@':(body)->
+        return "__out+=__o(arguments.callee.load(#{body}));"
     '#':(body)->
         if body
             re = /^(\w+)(\s+(.*))?$/.exec(body)
@@ -164,8 +166,8 @@ wheei = (text,data,conf)->
 wheei.conf =
     strip:   false
     argName: 'it'
-    open:    '{{'
-    close:   '}}'
+    open:    '<%'
+    close:   '%>'
 
 wheei.parse = ->
     if it?
@@ -193,7 +195,8 @@ wheei.encode = ->
 
 wheei.tpls = {}
 
-global?.wheei=wheei
-window?.wheei=wheei
 
-return wheei
+
+do ->
+    # `this` is global
+    this.wheei=wheei
