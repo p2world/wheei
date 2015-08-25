@@ -8,70 +8,70 @@ a javascript native code embed template with
 ## fire
 
 ```
-{{=0}}      //0
-{{=false}}  //
-{{=true}}   //true
-{{=null}}   //
+<%=0%>      //0
+<%=false%>  //
+<%=true%>   //true
+<%=null%>   //
 
-{{-'<'}}    // &lt;
+<%-'<'%>    // &lt;
 
 
-{{
+<%
 var a=0;
-}}
+%>
 
 
-{{ if(a===1){ }}
+<% if(a===1){ %>
 
-{{ }else if(a===2){ }}
+<% }else if(a===2){ %>
 
-{{ }else{ }}
+<% }else{ %>
 
-{{ } }}
+<% } %>
 
 
 // sugar:
 
-{{? a===1 }}     // if(a===1){
+<%? a===1 %>     // if(a===1){
 
-{{?? a===2 }}    // }else if(a===2){
+<%?? a===2 %>    // }else if(a===2){
 
-{{??}}           // }else{
+<%??%>           // }else{
 
-{{?}}            // }
+<%?%>            // }
 
 
-{{~['a','b','c'] v}}
-    {{-v}},             // a,b,c
-{{~}}
+<%~['a','b','c'] v%>
+    <%-v%>,             // a,b,c
+<%~%>
 
-{{~['a','b','c'] i,v}}
-    {{-i}} {{-v}},      // 0 a,1 b,2 c,
-{{~}}
+<%~['a','b','c'] i,v%>
+    <%-i%> <%-v%>,      // 0 a,1 b,2 c,
+<%~%>
 
 ```
 
 render html
 
 ```javascript
-var html=wheei('<h1>{{-it.title}}</h1>',{title:'wheei'}); // 'wheei'
+var html=wheei('<h1><%-it.title%></h1>',{title:'wheei'}); // 'wheei'
 ```
 
 get template function
 
 ```javascript
-var func=wheei('<h1>{{-it.title}}</h1>');         // function(it){...}
+var func=wheei('<h1><%-it.title%></h1>');         // function(it){...}
 func({title:'wheei'});                            // 'wheei'
 ```
 
 third argument is conf
 
 ```javascript
-var html=wheei('{{-data}}','ok',{argName:data}); // 'ok'
+var html=wheei('<%-data%>','ok',{argName:data}); // 'ok'
 ```
 
-* open    `{{`
-* close   `}}`
+* open    `<%`
+* close   `%>`
 * argName `it`
 * strip   `false`     strip white-space between line and line
 
@@ -84,34 +84,34 @@ the globel default is `wheei.conf`
 ### inner template
 
 ```
-{{#list data , a}}
-    {{~data item}}
-        <li>{{-item}}</li>
-    {{~}}
-    {{=a}}
-{{#}}
-{{=list(['first','second'],'aaa')}}
+<%#list data , a%>
+    <%~data item%>
+        <li><%-item%></li>
+    <%~%>
+    <%=a%>
+<%#%>
+<%=list(['first','second'],'aaa')%>
 ```
 
 same to
 
 ```
-{{function list(data , a){var __out='';}}
-    {{~data item}}
-        <li>{{-item}}</li>
-    {{~}}
-    {{=a}}
-{{return __out;} }}
-{{=list(['first','second'],'aaa')}}
+<%function list(data , a){var __out='';%>
+    <%~data item%>
+        <li><%-item%></li>
+    <%~%>
+    <%=a%>
+<%return __out;} %>
+<%=list(['first','second'],'aaa')%>
 ```
 
 ### include template
 
 ```html
 <script type="text/plain" id="list">
-    {{~data item}}
-        <li>{{-item}}</li>
-    {{~}}
+    <%~data item%>
+        <li><%-item%></li>
+    <%~%>
 </script>
 ```
 
@@ -122,7 +122,7 @@ wheei.tpls.list = wheei(document.getElementById('list').innerHTML);
 ```html
 <script type="text/plain" id="page">
     <h1>in page</h1>
-    {{=wheei.tpls.list(['first','second'])}}
+    <%=wheei.tpls.list(['first','second'])%>
 </script>
 ```
 
@@ -147,14 +147,14 @@ index.whe
 
 ```
 index.whe
-{{@ 'whe/a.whe','hello'}}
+<%@ 'whe/a.whe','hello'%>
 index.whe
 ```
 
 include/a.whe
 
 ```
-a.whe:{{=it}}
+a.whe:<%=it%>
 ```
 
 result is:

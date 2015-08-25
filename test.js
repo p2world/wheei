@@ -16,37 +16,37 @@
   test(" \n\na\n\n     b\n\n", {}, 'ab', {
     strip: true
   });
-  test("{{var a=1,b={};__out+=1;}}", {}, '1');
-  test("{{=0}}", {}, '0');
-  test("{{='0'}}", {}, '0');
-  test("{{=false}}", {}, '');
-  test("{{=true}}", {}, 'true');
-  test("{{=null}}", {}, '');
-  test("{{={} }}", {}, '[object Object]');
-  test("{{=function(a,b){return a<b;} }}", {}, 'function (a,b){return a<b;}');
-  test("{{-0}}", {}, '0');
-  test("{{-'/\\'\"<>&'}}", {}, '&#47;&#39;&#34;&lt;&gt;&amp;');
-  test("{{-'0'}}", {}, '0');
-  test("{{-false}}", {}, '');
-  test("{{-true}}", {}, 'true');
-  test("{{-null}}", {}, '');
-  test("{{-{} }}", {}, '[object Object]');
-  test("{{-function(a,b){return a<b;} }}", {}, 'function (a,b){return a&lt;b;}');
-  test("b{{if(false){}}aa{{}else if(false){}}cc{{}else{}}dd{{ } }}b", {}, 'bddb');
-  test("b{{?false}}aa{{?}}b", {}, 'bb');
-  test("b{{?true}}aa{{?}}b", {}, 'baab');
-  test("b{{?false}}aa{{??}}cc{{?}}b", {}, 'bccb');
-  test("b{{?true}}aa{{??}}cc{{?}}b", {}, 'baab');
-  test("b{{?false}}aa{{??false}}cc{{??true}}dd{{?}}b", {}, 'bddb');
-  test("{{~[1,2,3] i,v}}{{=i}}{{=v}}{{~}}", {}, '011223');
-  test('{{function list(data){\n    var __out=\'\';\n}}\n    {{~data item}}\n        <li>{{-item}}</li>\n    {{~}}\n{{\n    return __out;\n}\n}}\n{{=list([\'first\',\'second\'])}}', {}, '<li>first</li><li>second</li>', {
+  test("<%var a=1,b={};__out+=1;%>", {}, '1');
+  test("<%=0%>", {}, '0');
+  test("<%='0'%>", {}, '0');
+  test("<%=false%>", {}, '');
+  test("<%=true%>", {}, 'true');
+  test("<%=null%>", {}, '');
+  test("<%={} %>", {}, '[object Object]');
+  test("<%=function(a,b){return a<b;} %>", {}, 'function (a,b){return a<b;}');
+  test("<%-0%>", {}, '0');
+  test("<%-'/\\'\"<>&'%>", {}, '&#47;&#39;&#34;&lt;&gt;&amp;');
+  test("<%-'0'%>", {}, '0');
+  test("<%-false%>", {}, '');
+  test("<%-true%>", {}, 'true');
+  test("<%-null%>", {}, '');
+  test("<%-{} %>", {}, '[object Object]');
+  test("<%-function(a,b){return a<b;} %>", {}, 'function (a,b){return a&lt;b;}');
+  test("b<%if(false){%>aa<%}else if(false){%>cc<%}else{%>dd<% } %>b", {}, 'bddb');
+  test("b<%?false%>aa<%?%>b", {}, 'bb');
+  test("b<%?true%>aa<%?%>b", {}, 'baab');
+  test("b<%?false%>aa<%??%>cc<%?%>b", {}, 'bccb');
+  test("b<%?true%>aa<%??%>cc<%?%>b", {}, 'baab');
+  test("b<%?false%>aa<%??false%>cc<%??true%>dd<%?%>b", {}, 'bddb');
+  test("<%~[1,2,3] i,v%><%=i%><%=v%><%~%>", {}, '011223');
+  test('<%function list(data){\n    var __out=\'\';\n%>\n    <%~data item%>\n        <li><%-item%></li>\n    <%~%>\n<%\n    return __out;\n}\n%>\n<%=list([\'first\',\'second\'])%>', {}, '<li>first</li><li>second</li>', {
     strip: true
   });
-  test('{{=list([\'first\',\'second\'],\'aaa\')}}\n{{#list data , a}}\n    {{~data item}}\n        <li>{{-item}}</li>\n    {{~}}\n    {{=a}}\n{{#}}', {}, '<li>first</li><li>second</li>aaa', {
+  test('<%=list([\'first\',\'second\'],\'aaa\')%>\n<%#list data , a%>\n    <%~data item%>\n        <li><%-item%></li>\n    <%~%>\n    <%=a%>\n<%#%>', {}, '<li>first</li><li>second</li>aaa', {
     strip: true
   });
   try {
-    test('{{~[1,2,3] k,v}}\n\n{{?}}', {}, '');
+    test('<%~[1,2,3] k,v%>\n\n<%?%>', {}, '');
     throw new Error('ERROR: unclosed check');
   } catch (e$) {
     e = e$;
@@ -57,7 +57,7 @@
     }
   }
   try {
-    test('\n{{?}}', {}, '');
+    test('\n<%?%>', {}, '');
     throw new Error('ERROR: unopend check');
   } catch (e$) {
     e = e$;
@@ -68,7 +68,7 @@
     }
   }
   try {
-    test('\n{{varr a}}', {}, '');
+    test('\n<%varr a%>', {}, '');
     throw new Error('ERROR: new Function check');
   } catch (e$) {
     e = e$;

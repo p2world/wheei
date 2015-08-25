@@ -23,66 +23,66 @@ a
 
  """,{},'ab',{strip:true}
 
-test """{{var a=1,b={};__out+=1;}}""",{},'1'
+test """<%var a=1,b={};__out+=1;%>""",{},'1'
 
-test """{{=0}}""",{},'0'
-test """{{='0'}}""",{},'0'
-test """{{=false}}""",{},''
-test """{{=true}}""",{},'true'
-test """{{=null}}""",{},''
-test """{{={} }}""",{},'[object Object]'
-test """{{=function(a,b){return a<b;} }}""",{},'function (a,b){return a<b;}'
+test """<%=0%>""",{},'0'
+test """<%='0'%>""",{},'0'
+test """<%=false%>""",{},''
+test """<%=true%>""",{},'true'
+test """<%=null%>""",{},''
+test """<%={} %>""",{},'[object Object]'
+test """<%=function(a,b){return a<b;} %>""",{},'function (a,b){return a<b;}'
 
-test """{{-0}}""",{},'0'
-test """{{-'/\\'"<>&'}}""",{},'&#47;&#39;&#34;&lt;&gt;&amp;'
-test """{{-'0'}}""",{},'0'
-test """{{-false}}""",{},''
-test """{{-true}}""",{},'true'
-test """{{-null}}""",{},''
-test """{{-{} }}""",{},'[object Object]'
-test """{{-function(a,b){return a<b;} }}""",{},'function (a,b){return a&lt;b;}'
+test """<%-0%>""",{},'0'
+test """<%-'/\\'"<>&'%>""",{},'&#47;&#39;&#34;&lt;&gt;&amp;'
+test """<%-'0'%>""",{},'0'
+test """<%-false%>""",{},''
+test """<%-true%>""",{},'true'
+test """<%-null%>""",{},''
+test """<%-{} %>""",{},'[object Object]'
+test """<%-function(a,b){return a<b;} %>""",{},'function (a,b){return a&lt;b;}'
 
-test """b{{if(false){}}aa{{}else if(false){}}cc{{}else{}}dd{{ } }}b""",{},'bddb'
+test """b<%if(false){%>aa<%}else if(false){%>cc<%}else{%>dd<% } %>b""",{},'bddb'
 
 
-test """b{{?false}}aa{{?}}b""",{},'bb'
-test """b{{?true}}aa{{?}}b""",{},'baab'
-test """b{{?false}}aa{{??}}cc{{?}}b""",{},'bccb'
-test """b{{?true}}aa{{??}}cc{{?}}b""",{},'baab'
-test """b{{?false}}aa{{??false}}cc{{??true}}dd{{?}}b""",{},'bddb'
+test """b<%?false%>aa<%?%>b""",{},'bb'
+test """b<%?true%>aa<%?%>b""",{},'baab'
+test """b<%?false%>aa<%??%>cc<%?%>b""",{},'bccb'
+test """b<%?true%>aa<%??%>cc<%?%>b""",{},'baab'
+test """b<%?false%>aa<%??false%>cc<%??true%>dd<%?%>b""",{},'bddb'
 
-test """{{~[1,2,3] i,v}}{{=i}}{{=v}}{{~}}""",{},'011223'
+test """<%~[1,2,3] i,v%><%=i%><%=v%><%~%>""",{},'011223'
 
 
 test '''
-{{function list(data){
+<%function list(data){
     var __out='';
-}}
-    {{~data item}}
-        <li>{{-item}}</li>
-    {{~}}
-{{
+%>
+    <%~data item%>
+        <li><%-item%></li>
+    <%~%>
+<%
     return __out;
 }
-}}
-{{=list(['first','second'])}}
+%>
+<%=list(['first','second'])%>
 ''',{},'<li>first</li><li>second</li>',{strip:true}
 
 test '''
-{{=list(['first','second'],'aaa')}}
-{{#list data , a}}
-    {{~data item}}
-        <li>{{-item}}</li>
-    {{~}}
-    {{=a}}
-{{#}}
+<%=list(['first','second'],'aaa')%>
+<%#list data , a%>
+    <%~data item%>
+        <li><%-item%></li>
+    <%~%>
+    <%=a%>
+<%#%>
 ''',{},'<li>first</li><li>second</li>aaa',{strip:true}
 
 try
     test '''
-    {{~[1,2,3] k,v}}
+    <%~[1,2,3] k,v%>
 
-    {{?}}
+    <%?%>
     ''',{},''
     throw new Error 'ERROR: unclosed check'
 catch e
@@ -94,7 +94,7 @@ catch e
 try
     test '''
 
-    {{?}}
+    <%?%>
     ''',{},''
     throw new Error 'ERROR: unopend check'
 catch e
@@ -106,7 +106,7 @@ catch e
 try
     test '''
 
-    {{varr a}}
+    <%varr a%>
     ''',{},''
     throw new Error 'ERROR: new Function check'
 catch e
