@@ -1,12 +1,14 @@
 {
   "name": "wheei",
   "description": "a javascript code embed template with",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "keywords": [
     "wheei",
     "express",
     "browser",
-    "template"
+    "template",
+    "ejs",
+    "dot"
   ],
   "author": {
     "name": "p2world"
@@ -20,8 +22,5 @@
   },
   "scripts": {
     "test": "node test.js"
-  },
-  "dependencies": {
-    "wheei": "1"
   }
 }

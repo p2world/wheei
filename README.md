@@ -5,6 +5,18 @@ a javascript native code embed template with
 * powerful
 * Compatible
 
+
+compare with similar libs
+
+|            | ejs | dot | wheei |
+|------------|:---:|:---:|:-----:|
+| javascript |  √  |  √  |   √   |
+| shortcut   |  ×  |  √  |   √   |
+| debug      |  √  |  ×  |   √   |
+| {{!0}}     |  √  |  ×  |   √   |
+
+
+
 ## fire
 
 ```
