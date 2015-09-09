@@ -14,6 +14,7 @@ compare with similar libs
 | shortcut   |  ×  |  √  |   √   |
 | debug      |  √  |  ×  |   √   |
 | {{!0}}     |  √  |  ×  |   √   |
+| mark safe  |  ×  |  ×  |   √   |
 
 
 
@@ -98,6 +99,15 @@ the globel default is `wheei.conf`
 * wheei is a global variable (because template function will access it)
 
 ## beyond
+
+### mark safe
+
+```javascript
+    wheei('<%-it%>','<a href="xxx">xxx</a>'); // you will get a `<a href="xxx">xxx</a>` text
+    wheei('<%-it%>',wheei.markSafe('<a href="xxx">xxx</a>')); // you will get a link element
+    wheei('<%=it%>',wheei.markSafe('<a href="xxx">xxx</a>')); // you will get a link element too
+```
+
 
 ### inner template
 

@@ -33,6 +33,8 @@
   test("<%-{} %>", {}, '[object Object]');
   test("<%-function(a,b){return a<b;} %>", {}, 'function (a,b){return a&lt;b;}');
   test("b<%if(false){%>aa<%}else if(false){%>cc<%}else{%>dd<% } %>b", {}, 'bddb');
+  test("<%-it%>", wheei.markSafe('<'), '<');
+  test("<%=it%>", wheei.markSafe('<'), '<');
   test("b<%?false%>aa<%?%>b", {}, 'bb');
   test("b<%?true%>aa<%?%>b", {}, 'baab');
   test("b<%?false%>aa<%??%>cc<%?%>b", {}, 'bccb');

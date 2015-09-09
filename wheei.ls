@@ -133,8 +133,8 @@ complie = (text,conf)->
 
     return contentStr = """
         var __out='';
-        var __o=wheei.parse;
-        var __e=wheei.encode;
+        var __o=wheei.safeParse;
+        var __e=wheei.safeEncode;
         #funcContent
         return __out;
     """
@@ -169,6 +169,21 @@ wheei.conf =
     open:    '<%'
     close:   '%>'
 
+safeClass = ->
+    this.html=it;
+
+wheei.markSafe = ->
+    if it instanceof safeClass
+        return it
+    else
+        return new safeClass(it)
+
+wheei.safeParse = ->
+    if it instanceof safeClass
+        it = it.html
+    return wheei.parse it
+
+
 wheei.parse = ->
     if it?
         if \boolean == typeof it
@@ -177,6 +192,14 @@ wheei.parse = ->
             return ''+it
     else
         return ''
+
+
+
+wheei.safeEncode = ->
+    if it instanceof safeClass
+        return wheei.parse it.html
+    else
+        return wheei.encode it
 
 wheei.encode = ->
     if \string != typeof it
