@@ -171,7 +171,7 @@ app.set('view cache', true||false);
 
 ### include
 
-index.whe
+`index.whe`:
 
 ```
 index.whe
@@ -179,7 +179,7 @@ index.whe
 index.whe
 ```
 
-include/a.whe
+`whe/a.whe`:
 
 ```
 a.whe:<%=it%>
