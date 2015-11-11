@@ -105,7 +105,7 @@
   parseHtml = function(html, conf){
     html.replace(/\\|'/g, '\\$&');
     if (conf.strip) {
-      html = trim(html).replace(/\s*\n\s*/g, '');
+      html = html.replace(/\s*\n\s*/g, '');
     } else {
       html = html.replace(/\n/g, '\\n');
     }
