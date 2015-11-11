@@ -84,7 +84,7 @@ parseScript=(script)->
 
 
 parseHtml=(html,conf)->
-    html.replace(/\\|'/g,'\\$&')
+    html=html.replace(/\\|'/g,'\\$&')
 
     if conf.strip
         html=html.replace(/\s*\n\s*/g,'')
@@ -92,7 +92,7 @@ parseHtml=(html,conf)->
         html=html.replace(/\n/g,'\\n')
     
     if html
-        return "__out+='" +html + '\';'
+        return '__out+=\'' +html + '\';'
 
 complie = (text,conf)->
     _i           = 0

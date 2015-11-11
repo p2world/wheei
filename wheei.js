@@ -103,14 +103,14 @@
     return script;
   };
   parseHtml = function(html, conf){
-    html.replace(/\\|'/g, '\\$&');
+    html = html.replace(/\\|'/g, '\\$&');
     if (conf.strip) {
       html = html.replace(/\s*\n\s*/g, '');
     } else {
       html = html.replace(/\n/g, '\\n');
     }
     if (html) {
-      return "__out+='" + html + '\';';
+      return '__out+=\'' + html + '\';';
     }
   };
   complie = function(text, conf){

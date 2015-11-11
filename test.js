@@ -13,7 +13,8 @@
     }
   };
   test(" aaaa ", {}, ' aaaa ');
-  test(" \n\na\n\n     b\n\n", {}, 'ab', {
+  test(" \\\"\" \\'' ", {}, " \\\"\"\" \\''' ");
+  test(" \n\na <%=''%> c\n\n     b\n\n", {}, 'a  cb', {
     strip: true
   });
   test("<%var a=1,b={};__out+=1;%>", {}, '1');

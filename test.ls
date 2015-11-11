@@ -13,15 +13,16 @@ test = (text,arg,res,conf)->
 
 
 test """ aaaa """,{},' aaaa '
+test """ \\"" \\'' """,{},""" \\"\"" \\'\'' """
 
 test """ 
 
-a
+a <%=''%> c
 
      b
 
 
- """,{},'ab',{strip:true}
+ """,{},'a  cb',{strip:true}
 
 test """<%var a=1,b={};__out+=1;%>""",{},'1'
 
