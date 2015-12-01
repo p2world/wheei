@@ -68,6 +68,15 @@ var a=0;
     <%-v%>,             // a,b,c
 <%~%>
 
+// comment
+
+<%*
+this is a comment
+this is a comment
+this is a comment
+this is a comment
+%>
+
 ```
 
 render html

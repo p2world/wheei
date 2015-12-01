@@ -11,18 +11,23 @@ test = (text,arg,res,conf)->
         console.log("OK: #text")
 
 
-
+test """<%*
+this is a comment
+this is a comment
+this is a comment
+this is a comment
+%>""",{},''
 test """ aaaa """,{},' aaaa '
-test """ \\"" \\'' """,{},""" \\"\"" \\'\'' """
+test """ \\"\"" \\'\'' """,{},""" \\"\"" \\'\'' """
 
-test """ 
+test """ a
 
 a <%=''%> c
 
      b
 
 
- """,{},'a  cb',{strip:true}
+ """,{},'aa  cb',{strip:true}
 
 test """<%var a=1,b={};__out+=1;%>""",{},'1'
 

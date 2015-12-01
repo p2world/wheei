@@ -19,6 +19,8 @@ statementStackPop = ->
         throw new Error "unclosed `#type`"
 
 quicks=
+    '*':->
+        return ''
     '-':(body)->
         return "__out+=__e(#{body});"
     '@':(body)->
@@ -100,6 +102,9 @@ complie = (text,conf)->
     contextStart = 0
     funcArr      = []
     i            = 0
+
+    if conf.strip
+        text=trim(text)
 
     while i <= text.length
         c              = text[i]

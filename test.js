@@ -12,9 +12,10 @@
       return console.log("OK: " + text);
     }
   };
+  test("<%*\nthis is a comment\nthis is a comment\nthis is a comment\nthis is a comment\n%>", {}, '');
   test(" aaaa ", {}, ' aaaa ');
-  test(" \\\"\" \\'' ", {}, " \\\"\"\" \\''' ");
-  test(" \n\na <%=''%> c\n\n     b\n\n", {}, 'a  cb', {
+  test(" \\\"\"\" \\''' ", {}, " \\\"\"\" \\''' ");
+  test(" a\n\na <%=''%> c\n\n     b\n\n", {}, 'aa  cb', {
     strip: true
   });
   test("<%var a=1,b={};__out+=1;%>", {}, '1');

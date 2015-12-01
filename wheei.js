@@ -24,6 +24,9 @@
     }
   };
   quicks = {
+    '*': function(){
+      return '';
+    },
     '-': function(body){
       return "__out+=__e(" + body + ");";
     },
@@ -120,6 +123,9 @@
     contextStart = 0;
     funcArr = [];
     i = 0;
+    if (conf.strip) {
+      text = trim(text);
+    }
     while (i <= text.length) {
       c = text[i];
       s2 = text.slice(i, i + 2);
