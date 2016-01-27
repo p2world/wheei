@@ -3,11 +3,12 @@
   var test, e;
   require('./wheei');
   test = function(text, arg, res, conf){
-    var func;
+    var func, _res;
     func = wheei(text, null, conf);
-    if (res !== func(arg)) {
+    _res = func(arg);
+    if (res !== _res) {
       console.log(func.toString());
-      throw new Error(text + " noteq " + res);
+      throw new Error(text + " : " + _res + " noteq " + res);
     } else {
       return console.log("OK: " + text);
     }
@@ -34,6 +35,7 @@
   test("<%-null%>", {}, '');
   test("<%-{} %>", {}, '[object Object]');
   test("<%-function(a,b){return a<b;} %>", {}, 'function (a,b){return a&lt;b;}');
+  test("<%$'</script>'%>", {}, "\"<\\/script>\"");
   test("b<%if(false){%>aa<%}else if(false){%>cc<%}else{%>dd<% } %>b", {}, 'bddb');
   test("<%-it%>", wheei.markSafe('<'), '<');
   test("<%=it%>", wheei.markSafe('<'), '<');

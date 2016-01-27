@@ -21,6 +21,8 @@ statementStackPop = ->
 quicks=
     '*':->
         return ''
+    '$':(body)->
+        return """__out+=__o(wheei.jsonify(#{body}));"""
     '-':(body)->
         return "__out+=__e(#{body});"
     '@':(body)->
@@ -173,6 +175,10 @@ wheei.conf =
     argName: 'it'
     open:    '<%'
     close:   '%>'
+
+wheei.jsonify = ->
+    JSON.stringify(it).replace(/\//g,'\\/')
+
 
 safeClass = ->
     this.html=it;

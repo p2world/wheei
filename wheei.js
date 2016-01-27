@@ -27,6 +27,9 @@
     '*': function(){
       return '';
     },
+    '$': function(body){
+      return "__out+=__o(wheei.jsonify(" + body + "));";
+    },
     '-': function(body){
       return "__out+=__e(" + body + ");";
     },
@@ -191,6 +194,9 @@
     argName: 'it',
     open: '<%',
     close: '%>'
+  };
+  wheei.jsonify = function(it){
+    return JSON.stringify(it).replace(/\//g, '\\/');
   };
   safeClass = function(it){
     return this.html = it;

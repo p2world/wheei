@@ -3,10 +3,11 @@ require './wheei'
 
 test = (text,arg,res,conf)->
     func = wheei(text,null,conf)
+    _res = func(arg)
 
-    if res != func(arg)
+    if res != _res
         console.log(func.toString())
-        throw new Error("#text noteq #res");
+        throw new Error("#text : #_res noteq #res");
     else
         console.log("OK: #text")
 
@@ -47,6 +48,7 @@ test """<%-true%>""",{},'true'
 test """<%-null%>""",{},''
 test """<%-{} %>""",{},'[object Object]'
 test """<%-function(a,b){return a<b;} %>""",{},'function (a,b){return a&lt;b;}'
+test """<%$'</script>'%>""",{},"""\"<\\/script>\""""
 
 test """b<%if(false){%>aa<%}else if(false){%>cc<%}else{%>dd<% } %>b""",{},'bddb'
 

@@ -77,6 +77,13 @@ this is a comment
 this is a comment
 %>
 
+// jsonify
+
+<%${id:1,name:'wheei'}%>  // {id:1,name:'wheei'}
+<%$'</script>'%>    // '<\/script>'
+<%$'null'%>    // null
+
+
 ```
 
 render html
