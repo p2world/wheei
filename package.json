@@ -1,7 +1,7 @@
 {
   "name": "wheei",
   "description": "a javascript code embed template with",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "keywords": [
     "wheei",
     "express",
@@ -13,6 +13,7 @@
   "author": {
     "name": "p2world"
   },
+  "homepage": "http://p2world.github.io/wheei/",
   "bugs": {
     "url": "https://github.com/p2world/wheei/issues"
   },

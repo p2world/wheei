@@ -5,6 +5,7 @@ a javascript native code embed template with
 * powerful
 * Compatible
 
+[Website and Documentation](http://p2world.github.io/wheei/)
 
 compare with similar libs
 
